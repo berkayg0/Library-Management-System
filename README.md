@@ -24,7 +24,7 @@ A Java Swing application to manage library books, users, and borrowing transacti
 
 1.  **Clone the Repository**
     ```bash
-    git clone [https://github.com/berkayg0/LibraryManagementSystem.git](https://github.com/berkayg0/LibraryManagementSystem.git)
+    git clone [https://github.com/berkayg0/Library-Management-System.git](https://github.com/berkayg0/Library-Management-System.git)
     ```
 
 2.  **Database Setup**
