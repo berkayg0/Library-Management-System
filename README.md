@@ -2,3 +2,4 @@
 A Java Swing application to manage library books, users, and borrowing transactions with a MySQL database backend.
 
 ### 🔐 User Management & Security
+**Secure Authentication:** Password hashing (SHA-256) for secure login and registration.
