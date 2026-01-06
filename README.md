@@ -19,3 +19,25 @@ A Java Swing application to manage library books, users, and borrowing transacti
 ### 🛡️ Technical Highlights
 * **SQL Injection Protection:** All database queries use `PreparedStatement`.
 * **Resource Management:** Proper closing of SQL connections using try-with-resources.
+
+## 💻 Installation & Setup
+
+1.  **Clone the Repository**
+    ```bash
+    git clone [https://github.com/YOUR_USERNAME/LibraryManagementSystem.git](https://github.com/YOUR_USERNAME/LibraryManagementSystem.git)
+    ```
+
+2.  **Database Setup**
+    * Open **MySQL Workbench**.
+    * Create a schema named `library_db`.
+    * Import the `database.sql` file located in the root directory of this project.
+
+3.  **Configure Connection**
+    * Navigate to `src/db/DB.java`.
+    * Update the `username` and `password` fields with your local MySQL credentials.
+
+4.  **Run the Application**
+    * Open the project in **NetBeans** (or any Java IDE).
+    * Run `StartScreen.java` to launch the application.
+
+---
