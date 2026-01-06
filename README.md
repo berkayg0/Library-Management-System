@@ -15,3 +15,7 @@ A Java Swing application to manage library books, users, and borrowing transacti
 * **ACID Compliance:** Uses SQL Transactions (`commit`/`rollback`) to ensure data consistency during borrowing and returning processes.
 * **Race Condition Prevention:** Stock quantities are managed directly at the database level to prevent concurrency issues.
 * **Overdue Tracking:** Automatically calculates and flags overdue books based on the return date.
+
+### 🛡️ Technical Highlights
+* **SQL Injection Protection:** All database queries use `PreparedStatement`.
+* **Resource Management:** Proper closing of SQL connections using try-with-resources.
