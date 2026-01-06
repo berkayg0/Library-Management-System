@@ -11,7 +11,7 @@ public class DB{
 
     private static final String URL = "jdbc:mysql://localhost:3306/library_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String USER = "root";
-    private static final String PASSWORD = "1234";  // şifre varsa yaz
+    private static final String PASSWORD = "YOURPASSWORD"; 
 
     public static Connection getConnection() {
         Connection conn = null;
@@ -24,3 +24,4 @@ public class DB{
         return conn;
     }
 }
+
