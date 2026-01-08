@@ -46,7 +46,7 @@ A Java Swing application to manage library books, users, and borrowing transacti
 
 ## Admin Dashboard
 
-<img width="746" height="708" alt="Image" src="https://github.com/user-attachments/assets/3e7193ef-7417-4814-b56c-1dfa7203ec4b" />
+<img width="748" height="709" alt="Image" src="https://github.com/user-attachments/assets/67d4a674-624c-4807-a1d4-7878fa43ed3c" />
 
 
 ## User Dashboard
