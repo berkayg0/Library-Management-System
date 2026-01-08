@@ -70,8 +70,9 @@ public class Dashboard extends javax.swing.JFrame implements BookCardInterface{
         
         currentBooksScrollPane.setBorder(BorderFactory.createEmptyBorder());
 
-
         loadBooks();
+        
+        updateTotalBooks();
                 
         setLabels();
 
@@ -113,9 +114,24 @@ public class Dashboard extends javax.swing.JFrame implements BookCardInterface{
         this.addWindowFocusListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowGainedFocus(java.awt.event.WindowEvent e) {
-                loadBooks(); 
+                loadBooks();
+                updateTotalBooks();
+                setLabels();
             }
         });
+    }
+    
+    public void updateTotalBooks(){     
+        try {
+
+        int totalBooks = userService.getTotalBooks(this.currentUser.getID());
+
+        this.currentUser.setTotalBooks(String.valueOf(totalBooks)); 
+
+        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     public void loadBooks(){

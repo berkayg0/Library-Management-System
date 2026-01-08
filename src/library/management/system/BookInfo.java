@@ -165,9 +165,7 @@ public class BookInfo extends javax.swing.JFrame{
         dueDate_label = new javax.swing.JLabel();
         dueDate = new javax.swing.JLabel();
 
-
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout titleBarLayout = new javax.swing.GroupLayout(titleBar);
         titleBar.setLayout(titleBarLayout);

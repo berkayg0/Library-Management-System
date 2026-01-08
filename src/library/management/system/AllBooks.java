@@ -101,7 +101,7 @@ public class AllBooks extends javax.swing.JFrame implements BookCardInterface{
         booksPanel = new javax.swing.JPanel();
         titleBar = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         booksPanel.setBackground(new java.awt.Color(220, 220, 220));
 

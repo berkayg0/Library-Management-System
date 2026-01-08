@@ -166,7 +166,7 @@ public class AssignToUser extends javax.swing.JFrame implements UserCardInterfac
         jPanel1 = new javax.swing.JPanel();
         assignButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout titleBarLayout = new javax.swing.GroupLayout(titleBar);
         titleBar.setLayout(titleBarLayout);
@@ -295,14 +295,22 @@ public class AssignToUser extends javax.swing.JFrame implements UserCardInterfac
     private void assignButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignButtonActionPerformed
         ArrayList<User> selectedUsers = new ArrayList<>();
         
+        boolean isUserSelectedFlag = false;
+        
         for(Component comp : allUsers.getComponents()){
             if(comp instanceof UserCard){
                 UserCard card = (UserCard) comp;
                 
                 if(((UserCard) comp).isSelected()){
+                    isUserSelectedFlag = true;
                     selectedUsers.add(card.getUser());
                 }
             }
+        }
+        
+        if(!isUserSelectedFlag){
+            new InformationMessage("Please select at least one user to assign books!").setVisible(true);
+            return;
         }
             
         int day = Integer.parseInt((String) dueDayCb.getSelectedItem());

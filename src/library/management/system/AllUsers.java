@@ -122,15 +122,12 @@ public class AllUsers extends javax.swing.JFrame implements UserCardInterface{
         jLabel2 = new javax.swing.JLabel();
         titleBar = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pendingUsersScrollPane.setMaximumSize(new java.awt.Dimension(280, 400));
         pendingUsersScrollPane.setMinimumSize(new java.awt.Dimension(280, 400));
         pendingUsersScrollPane.setPreferredSize(new java.awt.Dimension(280, 400));
         pendingUsersScrollPane.setViewportView(pendingUsers);
-
-        pendingUsers.setMinimumSize(new java.awt.Dimension(10, 10));
-        pendingUsers.setPreferredSize(new java.awt.Dimension(10, 10));
 
         javax.swing.GroupLayout pendingUsersLayout = new javax.swing.GroupLayout(pendingUsers);
         pendingUsers.setLayout(pendingUsersLayout);
@@ -148,8 +145,6 @@ public class AllUsers extends javax.swing.JFrame implements UserCardInterface{
         registeredUsersScrollPane.setMaximumSize(new java.awt.Dimension(280, 400));
         registeredUsersScrollPane.setMinimumSize(new java.awt.Dimension(280, 400));
         registeredUsersScrollPane.setViewportView(registeredUsers);
-
-        registeredUsers.setPreferredSize(new java.awt.Dimension(10, 10));
 
         javax.swing.GroupLayout registeredUsersLayout = new javax.swing.GroupLayout(registeredUsers);
         registeredUsers.setLayout(registeredUsersLayout);

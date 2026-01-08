@@ -12,15 +12,18 @@ import Service.UserService;
 import UI.BookCard;
 import Utils.Dialogs.QuestionFrame;
 import Utils.TitleBar;
+import dao.UserDAO;
 import dao.UserResult;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -48,7 +51,7 @@ public class UserInfo extends javax.swing.JFrame implements BookCardInterface{
         this.setUndecorated(true);
         initComponents();
                 
-        userBooksPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+
         userBooksPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 0));
 
         userBooksScrollPane.getVerticalScrollBar().setUnitIncrement(30);
@@ -89,34 +92,65 @@ public class UserInfo extends javax.swing.JFrame implements BookCardInterface{
     }
     
     public void loadBooks(){
-        ArrayList<Book> currentBooks = new BorrowingService().getCurrentBooks(this.currentUser.getID());
         
-        
-        userBooksPanel.removeAll();
-        
-        int rows = (int) Math.ceil(currentBooks.size() / 3.0);
-        int totalHeight = rows * 160;  
+        SwingUtilities.invokeLater(() -> {
+            
+            ArrayList<Book> currentBooks = new BorrowingService().getCurrentBooks(this.currentUser.getID());
 
+            userBooksPanel.removeAll();
+            
+            int getTotalBookCount = userService.getTotalBooks(this.currentUser.getID());
+            
+            this.currentUser.setTotalBooks(String.valueOf(getTotalBookCount));
+            
+            totalBooks_field.setText(this.currentUser.getTotalBooks());
+            
+            if (currentBooks.isEmpty()) {
+                userBooksPanel.revalidate();
+                userBooksPanel.repaint();
+                return;
+            }
+            
+            int finalHeight = 0;
+            
+            if(currentBooks.size() < 3){
+                userBooksPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 30));
+                
+                userBooksPanel.setBorder(null);
+                
+                finalHeight = 90 + (30*2);
 
+            }
+            else{
+                userBooksPanel.setLayout(new GridLayout(0, 2, 30, 30));
+                
+                int totalWidth = (2*120) + 30;
+                int remainingSpace = userBooksScrollPane.getViewport().getWidth() - totalWidth;
 
-        
+                int divideMargin = (remainingSpace > 0) ? remainingSpace / 2 : 10;
 
-        userBooksPanel.removeAll();
-        for(Book b : currentBooks){
+                userBooksPanel.setBorder(BorderFactory.createEmptyBorder(30, divideMargin, 30, divideMargin));
+
+                int rows = (int) Math.ceil(currentBooks.size() / 2.0);
+                finalHeight = (rows * 90) + ((rows-1)*30) + 100; 
+                             
+            }
+                    
+           for(Book b : currentBooks){
                 BookCard bookCard = new BookCard(this.currentUser, b, this, null);
                 bookCard.addRemoveButton();
                 bookCard.setOnUpdateCallback(() -> loadBooks());
                 bookCard.setDueDateVisible(true);
                 userBooksPanel.add(bookCard);                
             }   
+
+            userBooksPanel.setPreferredSize(new Dimension(userBooksScrollPane.getViewport().getWidth() - 20, finalHeight));
+
+
+            userBooksPanel.revalidate();
+            userBooksPanel.repaint();            
+        });
         
-        userBooksPanel.setPreferredSize(new Dimension(userBooksScrollPane.getViewport().getWidth(), totalHeight));
-
-
-
-
-        userBooksPanel.revalidate();
-        userBooksPanel.repaint();
     }
     
     public void setFields(){
@@ -211,7 +245,7 @@ public class UserInfo extends javax.swing.JFrame implements BookCardInterface{
         resetPasswordLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout titleBarLayout = new javax.swing.GroupLayout(titleBar);
         titleBar.setLayout(titleBarLayout);
@@ -298,28 +332,24 @@ public class UserInfo extends javax.swing.JFrame implements BookCardInterface{
         status_field.setBorder(null);
         status_field.setEnabled(false);
 
-        emailButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\PC\\Documents\\NetBeansProjects\\Library Management System\\images\\edit.png")); // NOI18N
         emailButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 emailButtonMouseClicked(evt);
             }
         });
 
-        phoneButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\PC\\Documents\\NetBeansProjects\\Library Management System\\images\\edit.png")); // NOI18N
         phoneButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 phoneButtonMouseClicked(evt);
             }
         });
 
-        userRoleButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\PC\\Documents\\NetBeansProjects\\Library Management System\\images\\edit.png")); // NOI18N
         userRoleButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 userRoleButtonMouseClicked(evt);
             }
         });
 
-        statusButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\PC\\Documents\\NetBeansProjects\\Library Management System\\images\\edit.png")); // NOI18N
         statusButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 statusButtonMouseClicked(evt);
@@ -435,21 +465,18 @@ public class UserInfo extends javax.swing.JFrame implements BookCardInterface{
         lastName_field.setBorder(null);
         lastName_field.setEnabled(false);
 
-        usernameButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\PC\\Documents\\NetBeansProjects\\Library Management System\\images\\edit.png")); // NOI18N
         usernameButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 usernameButtonMouseClicked(evt);
             }
         });
 
-        firstNameButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\PC\\Documents\\NetBeansProjects\\Library Management System\\images\\edit.png")); // NOI18N
         firstNameButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 firstNameButtonMouseClicked(evt);
             }
         });
 
-        lastNameButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\PC\\Documents\\NetBeansProjects\\Library Management System\\images\\edit.png")); // NOI18N
         lastNameButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lastNameButtonMouseClicked(evt);
@@ -543,18 +570,21 @@ public class UserInfo extends javax.swing.JFrame implements BookCardInterface{
                 .addGap(10, 10, 10))
         );
 
-        userBooksScrollPane.setMaximumSize(new java.awt.Dimension(250, 356));
-        userBooksScrollPane.setMinimumSize(new java.awt.Dimension(250, 356));
+        userBooksScrollPane.setMaximumSize(new java.awt.Dimension(343, 356));
+        userBooksScrollPane.setMinimumSize(new java.awt.Dimension(343, 356));
+
+        userBooksPanel.setMinimumSize(new java.awt.Dimension(341, 0));
+        userBooksPanel.setPreferredSize(new java.awt.Dimension(341, 356));
 
         javax.swing.GroupLayout userBooksPanelLayout = new javax.swing.GroupLayout(userBooksPanel);
         userBooksPanel.setLayout(userBooksPanelLayout);
         userBooksPanelLayout.setHorizontalGroup(
             userBooksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 339, Short.MAX_VALUE)
+            .addGap(0, 341, Short.MAX_VALUE)
         );
         userBooksPanelLayout.setVerticalGroup(
             userBooksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 354, Short.MAX_VALUE)
+            .addGap(0, 356, Short.MAX_VALUE)
         );
 
         userBooksScrollPane.setViewportView(userBooksPanel);
@@ -603,9 +633,9 @@ public class UserInfo extends javax.swing.JFrame implements BookCardInterface{
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(userBooksScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(userBooksScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -614,7 +644,7 @@ public class UserInfo extends javax.swing.JFrame implements BookCardInterface{
                 .addGap(15, 15, 15)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(userIconPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
