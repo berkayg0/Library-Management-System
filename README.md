@@ -61,7 +61,7 @@ A Java Swing application to manage library books, users, and borrowing transacti
 
 ## User Management
 
-<img width="753" height="538" alt="Image" src="https://github.com/user-attachments/assets/89f17f06-b2e4-4303-9f69-563d6c4fb750" />
+<img width="761" height="538" alt="Image" src="https://github.com/user-attachments/assets/169e1b82-64f4-4202-bf2c-fc1e942e05a7" />
 
 ---
 
